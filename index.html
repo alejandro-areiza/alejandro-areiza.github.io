@@ -136,7 +136,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
 .cprog{margin-top:10px}
 .cp-lbl{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 .cp-tr{height:3px;border-radius:100px;background:var(--line);overflow:hidden}
-.cp-fi{height:100%;border-radius:100px;background:var(--c,var(--mist));transition:width 1.2s cubic-bezier(.4,0,.2,1);width:0}
+.cp-fi{height:100%;border-radius:100px;background:var(--c,var(--mist));transition:width 1.2s cubic-bezier(.4,0,.2,1)}
 
 /* ══════════════ DIVIDER ══════════════ */
 .divider{
@@ -258,9 +258,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
 }
 .footer strong{color:var(--mg)}
 
-/* animations */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
-.reveal.in{opacity:1;transform:translateY(0)}
+/* sprint-right column */
+.sprint-right{min-width:0;flex:1}
+
+/* animations — visible by default, animate in on load */
+.reveal{opacity:0;transform:translateY(16px);animation:revealIn .5s ease forwards}
+@keyframes revealIn{to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:720px){
   .nav,.hero,.roadmap,.divider,.reso-top,.reso-wrap,.dis-wrap,.footer{padding-left:24px;padding-right:24px}
@@ -292,15 +295,15 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
 
 <header class="hero">
   <div>
-    <div class="hero-eyebrow"><span class="dot"></span><span>Vivehome · Fraktal Software · Abril 2026</span></div>
-    <h1><em>Vivehome Apex</em></h1>
+    <div class="hero-eyebrow"><span class="dot"></span><span>Vivehome · Fraktal Software · Abril 2025</span></div>
+    <h1><em>Hoja de Ruta</em></h1>
     <p>Plataforma Administrativa · Rediseño &amp; Modernización</p>
   </div>
   <div class="kpi-bar">
-    <div class="kpi"><div class="kpi-n" style="color:#009982"><span class="counter" data-target="9">0</span></div><div class="kpi-l">Completadas</div></div>
-    <div class="kpi"><div class="kpi-n" style="color:var(--mg)"><span class="counter" data-target="2">0</span></div><div class="kpi-l">En progreso</div></div>
-    <div class="kpi"><div class="kpi-n" style="color:var(--purple)"><span class="counter" data-target="7">0</span></div><div class="kpi-l">Épicas</div></div>
-    <div class="kpi"><div class="kpi-n" style="color:var(--txt)">S<span class="counter" data-target="1">0</span></div><div class="kpi-l">Sprint activo</div></div>
+    <div class="kpi"><div class="kpi-n" style="color:#009982">9</div><div class="kpi-l">Completadas</div></div>
+    <div class="kpi"><div class="kpi-n" style="color:var(--mg)">2</div><div class="kpi-l">En progreso</div></div>
+    <div class="kpi"><div class="kpi-n" style="color:var(--purple)">7</div><div class="kpi-l">Épicas</div></div>
+    <div class="kpi"><div class="kpi-n" style="color:var(--txt)">S1</div><div class="kpi-l">Sprint activo</div></div>
   </div>
 </header>
 
@@ -310,14 +313,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
   <div class="sprint-row reveal">
     <div class="sprint-left"><div class="sdot dot-done">S0</div><div class="slbl-vert">Hecho</div></div>
     <div class="sprint-right">
-      <div class="sprint-header"><span class="sprint-name">Diseño y Product Discovery</span><span class="sbadge bd">✓ Completado</span></div>
+      <div class="sprint-header"><span class="sprint-name">Fundaciones</span><span class="sbadge bd">✓ Completado</span></div>
       <p class="sprint-desc">Infraestructura, DevOps, Discovery y base técnica del proyecto.</p>
       <div class="cgrid">
         <div class="dc" style="--c:var(--mist)"><div class="dc-ico">☁️</div><div class="dc-t">Infraestructura AWS</div><div class="dc-d">3 ambientes provisionados.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Oqtane desplegado en AWS</li><li><span class="ck ck-y">✓</span>Pantalla inicial con identidad</li><li><span class="ck ck-y">✓</span>.NET 8 Clean Architecture</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100"></div></div></div></div>
         <div class="dc" style="--c:var(--mist)"><div class="dc-ico">⚙️</div><div class="dc-t">DevOps &amp; CI/CD</div><div class="dc-d">Flujo automatizado end-to-end.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>GitHub GitFlow + protección</li><li><span class="ck ck-y">✓</span>Pipeline CI/CD — 3 ambientes</li><li><span class="ck ck-y">✓</span>Docker multi-stage</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100"></div></div></div></div>
         <div class="dc" style="--c:var(--mist)"><div class="dc-ico">🗂️</div><div class="dc-t">Gestión del Proyecto</div><div class="dc-d">Trazabilidad desde el día 0.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Azure DevOps: sprints S0–S6</li><li><span class="ck ck-y">✓</span>Backlog con 40+ historias</li><li><span class="ck ck-y">✓</span>Trazabilidad AB#ID por commit</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100"></div></div></div></div>
         <div class="dc" style="--c:#f5a623"><div class="dc-ico">🔭</div><div class="dc-t">Product Discovery</div><div class="dc-d">Definición completa antes de código.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Multi-país · multi-moneda · multi-rol</li><li><span class="ck ck-y">✓</span>Estándar RESO definido</li><li><span class="ck ck-y">✓</span>Integraciones Zoho CRM</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100" style="background:#f5a623"></div></div></div></div>
-        <div class="dc" style="--c:var(--purple)"><div class="dc-ico">🎨</div><div class="dc-t">Design System &amp; UI</div><div class="dc-d">Sistema visual listo para el equipo.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Design guidelines de marca</li><li><span class="ck ck-y">✓</span>Pantallas admin y cotización</li><li><span class="ck ck-y">✓</span>Recursos gráficos e iconografía</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100" style="background:var(--purple)"></div></div></div></div>
+        <div class="dc" style="--c:var(--purple)"><div class="dc-ico">🎨</div><div class="dc-t">Guía de Diseño &amp; UI</div><div class="dc-d">Sistema visual listo para el equipo.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Design guidelines de marca</li><li><span class="ck ck-y">✓</span>Pantallas admin y cotización</li><li><span class="ck ck-y">✓</span>Recursos gráficos e iconografía</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100" style="background:var(--purple)"></div></div></div></div>
       </div>
     </div>
   </div>
@@ -326,7 +329,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
   <div class="sprint-row reveal" style="transition-delay:.08s">
     <div class="sprint-left"><div class="sdot dot-active">S1</div><div class="slbl-vert" style="color:var(--mg-md)">Activo</div></div>
     <div class="sprint-right">
-      <div class="sprint-header"><span class="sprint-name">Infraestructura e Inicio de Login</span><span class="sbadge ba">● En curso</span></div>
+      <div class="sprint-header"><span class="sprint-name">Autenticación &amp; Admin Base</span><span class="sbadge ba">● En curso</span></div>
       <p class="sprint-desc">Acceso seguro y estructura base del panel administrativo.</p>
       <div class="cgrid">
         <div class="dc" style="--c:var(--mg)"><div class="dc-ico">🔐</div><div class="dc-t">Autenticación</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Login con correo y contraseña</li><li><span class="ck ck-p">↻</span>Recuperación de contraseña</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>60%</span></div><div class="cp-tr"><div class="cp-fi" data-w="60" style="background:var(--mg)"></div></div></div></div>
@@ -339,7 +342,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
   <!-- S2 -->
   <div class="sprint-row future reveal" style="transition-delay:.12s">
     <div class="sprint-left"><div class="sdot dot-future">S2</div></div>
-    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">Gestión de Proyectos Inmobiliarios</span><span class="sbadge bf">Próximo</span></div><p class="sprint-desc">CRUD completo con multimedia, mapas y disponibilidad.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🏢</div><div class="dc-t">CRUD de Proyectos</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Crear / Editar / Listar</li><li><span class="ck ck-n">○</span>Precios y plan de pagos</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🖼️</div><div class="dc-t">Multimedia &amp; Mapas</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Galería, video y recorrido 360°</li><li><span class="ck ck-n">○</span>Google Maps integrado</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🔍</div><div class="dc-t">Buscador y Filtros</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Filtros básicos y avanzados</li><li><span class="ck ck-n">○</span>Vista carátula y detalle</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🌍</div><div class="dc-t">PoC RESO</div></div></div>
+    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">Gestión de Proyectos Inmobiliarios</span><span class="sbadge bf">Próximo</span></div><p class="sprint-desc">CRUD completo con multimedia, mapas y disponibilidad.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🏢</div><div class="dc-t">CRUD de Proyectos</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Crear / Editar / Listar</li><li><span class="ck ck-n">○</span>Precios y plan de pagos</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🖼️</div><div class="dc-t">Multimedia &amp; Mapas</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Galería, video y recorrido 360°</li><li><span class="ck ck-n">○</span>Google Maps integrado</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🔍</div><div class="dc-t">Buscador y Filtros</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Filtros básicos y avanzados</li><li><span class="ck ck-n">○</span>Vista carátula y detalle</li></ul></div></div></div>
   </div>
 
   <!-- S3 -->
@@ -352,7 +355,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
   <div class="sprint-row future reveal" style="transition-delay:.2s">
     <div class="sprint-left"><div class="sdot dot-future">S4</div></div>
     <div class="sprint-right">
-      <div class="sprint-header"><span class="sprint-name">Integraciones</span><span class="sbadge bf">Próximo</span></div>
+      <div class="sprint-header"><span class="sprint-name">Motor Financiero &amp; Integraciones</span><span class="sbadge bf">Próximo</span></div>
       <p class="sprint-desc">Cotizaciones comparativas, simulador de crédito e integración con APIs de constructoras.</p>
       <div class="cgrid">
         <div class="dc" style="--c:#ccc"><div class="dc-ico">💰</div><div class="dc-t">Cotizador Comparativo</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Cálculos financieros automáticos</li><li><span class="ck ck-n">○</span>Correo PDF + historial</li></ul></div>
@@ -387,13 +390,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
   <!-- S5 -->
   <div class="sprint-row future reveal" style="transition-delay:.24s">
     <div class="sprint-left"><div class="sdot dot-future">S5</div></div>
-    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">Cotización</span><span class="sbadge bf">Próximo</span></div><p class="sprint-desc">Portal público con cotización interactiva para el cliente.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🌐</div><div class="dc-t">Página Pública</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Info de proyectos y cliente</li><li><span class="ck ck-n">○</span>Navegación multimedia</li></ul></div></div></div>
+    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">Landing Pública de Cotización</span><span class="sbadge bf">Próximo</span></div><p class="sprint-desc">Portal público con cotización interactiva para el cliente.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🌐</div><div class="dc-t">Página Pública</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Info de proyectos y cliente</li><li><span class="ck ck-n">○</span>Navegación multimedia</li></ul></div></div></div>
   </div>
 
   <!-- S6 -->
   <div class="sprint-row future reveal" style="transition-delay:.28s">
     <div class="sprint-left"><div class="sdot dot-future">S6</div></div>
-    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">QA &amp; Go-Live</span><span class="sbadge bf">Cierre</span></div><p class="sprint-desc">Pruebas integrales y lanzamiento en producción.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🧪</div><div class="dc-t">Calidad &amp; No Funcionales</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Performance y seguridad</li><li><span class="ck ck-n">○</span>Multi-país · multi-lenguaje</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🚀</div><div class="dc-t">Lanzamiento</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Go-live en producción AWS</li><li><span class="ck ck-n">○</span>Funcionalidades terminadas</li><li><span class="ck ck-n">○</span>Capacitación herramienta</li></ul></div></div></div>
+    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">QA &amp; Go-Live</span><span class="sbadge bf">Cierre</span></div><p class="sprint-desc">Pruebas integrales y lanzamiento en producción.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🧪</div><div class="dc-t">Calidad &amp; No Funcionales</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Performance y seguridad</li><li><span class="ck ck-n">○</span>Multi-país · multi-lenguaje</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🚀</div><div class="dc-t">Lanzamiento</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Go-live en producción AWS</li><li><span class="ck ck-n">○</span>PoC Oqtane Multipaís</li></ul></div></div></div>
   </div>
 
 </div><!-- /roadmap -->
@@ -499,33 +502,22 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt)
 
 <!-- FOOTER -->
 <footer class="footer">
-  <span>Fraktal Software · Vivehome Apex · 2026</span>
+  <span>Fraktal Software · Vivehome Platform · 2025</span>
   <span><strong>Construyendo el futuro de Viventa</strong> 🚀</span>
 </footer>
 
+<style>
+/* stagger reveal delays */
+.reveal:nth-child(1){animation-delay:.05s}
+.reveal:nth-child(2){animation-delay:.12s}
+.reveal:nth-child(3){animation-delay:.18s}
+.reveal:nth-child(4){animation-delay:.24s}
+.reveal:nth-child(5){animation-delay:.30s}
+.reveal:nth-child(6){animation-delay:.36s}
+.reveal:nth-child(7){animation-delay:.42s}
+.reveal:nth-child(8){animation-delay:.48s}
+</style>
 <script>
-// reveal + progress bars
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('in');
-    e.target.querySelectorAll('.cp-fi').forEach(b => b.style.width = b.dataset.w + '%');
-    io.unobserve(e.target);
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(r => io.observe(r));
-
-// counters
-const cio = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const t = parseInt(e.target.dataset.target), step = t / 60; let c = 0;
-    const tm = setInterval(() => { c = Math.min(c+step,t); e.target.textContent = Math.round(c); if(c>=t) clearInterval(tm); }, 16);
-    cio.unobserve(e.target);
-  });
-}, { threshold: .5 });
-document.querySelectorAll('.counter').forEach(el => cio.observe(el));
-
 // country tabs
 function sw(id, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
@@ -534,7 +526,18 @@ function sw(id, el) {
   document.getElementById('p-' + id).classList.add('on');
 }
 
-// active nav
+// Fill progress bars on load (no IntersectionObserver needed)
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.cp-fi').forEach(b => {
+    b.style.width = (b.dataset.w || '0') + '%';
+  });
+  // Set counter final values immediately
+  document.querySelectorAll('.counter').forEach(el => {
+    el.textContent = el.dataset.target;
+  });
+});
+
+// active nav on scroll
 const secs = [
   { id:'s1', el: document.querySelector('a[href="#s1"]') },
   { id:'s2', el: document.querySelector('a[href="#s2"]') },
