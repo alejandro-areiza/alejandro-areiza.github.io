@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vivehome — Presentación</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --mg:    #E60064;
+  --mg-lt: #fff0f6;
+  --mg-md: #ffd6e9;
+  --navy:  #323755;
+  --bg:    #f5f5f7;
+  --white: #ffffff;
+  --line:  #e5e5ea;
+  --txt:   #2d2f3e;
+  --muted: #8e8fa2;
+  --mist:  #00c9af;
+  --mist-lt:#e4faf7;
+  --purple:#6b82f0;
+  --purp-lt:#eef0ff;
+  --yellow:#f5a623;
+  --yell-lt:#fff8e8;
+  --pink:  #e8659a;
+  --pink-lt:#ffeef5;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--txt);overflow-x:hidden}
+
+/* ══════════════ NAV ══════════════ */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+  padding:0 56px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-size:18px;font-weight:800;color:var(--txt);letter-spacing:-.02em;
+}
+.nav-logo span{color:var(--mg)}
+.nav-links{display:flex;gap:4px}
+.nav-a{
+  padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;
+  color:var(--muted);text-decoration:none;transition:all .2s;border:1px solid transparent;
+}
+.nav-a:hover{color:var(--txt);background:var(--bg)}
+.nav-a.on{color:var(--mg);background:var(--mg-lt);border-color:var(--mg-md)}
+
+/* ══════════════ HERO ══════════════ */
+.hero{
+  background:var(--white);border-bottom:1px solid var(--line);
+  padding:56px 56px 48px;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--mg-lt);border:1px solid var(--mg-md);
+  border-radius:100px;padding:4px 14px 4px 9px;
+  margin-bottom:18px;
+}
+.hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--mg);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+.hero-eyebrow span{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mg)}
+
+.hero h1{font-size:clamp(40px,5vw,68px);font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--txt)}
+.hero h1 em{color:var(--mg);font-style:normal}
+.hero p{font-size:14px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.kpi-bar{display:flex;gap:2px}
+.kpi{
+  background:var(--bg);border:1px solid var(--line);
+  padding:18px 24px;text-align:center;min-width:108px;
+}
+.kpi:first-child{border-radius:14px 0 0 14px}
+.kpi:last-child{border-radius:0 14px 14px 0}
+.kpi-n{font-size:30px;font-weight:800;line-height:1}
+.kpi-l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:4px;font-weight:600}
+
+/* ══════════════ ROADMAP ══════════════ */
+.roadmap{position:relative;max-width:1100px;margin:0 auto;padding:56px 56px 0;background:#fff}
+.roadmap::before{
+  content:'';position:absolute;top:0;bottom:0;left:calc(56px + 27px);
+  width:2px;background:linear-gradient(to bottom,transparent,var(--line) 8%,var(--line) 92%,transparent);
+}
+
+.sprint-row{display:grid;grid-template-columns:56px 1fr;gap:0 36px;margin-bottom:52px;position:relative}
+.sprint-row:last-child{margin-bottom:0}
+.sprint-left{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:2px}
+
+.sdot{
+  width:56px;height:56px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;position:relative;z-index:2;
+  transition:transform .25s;
+}
+.sprint-row:hover .sdot{transform:scale(1.07)}
+.dot-done{background:var(--mist-lt);color:var(--mist);border:2px solid var(--mist);box-shadow:0 0 0 4px rgba(0,201,175,.08)}
+.dot-active{background:var(--mg);color:#fff;animation:ap 2.5s infinite}
+@keyframes ap{0%,100%{box-shadow:0 0 0 5px rgba(230,0,100,.12),0 4px 16px rgba(230,0,100,.2)}50%{box-shadow:0 0 0 10px rgba(230,0,100,.05),0 4px 24px rgba(230,0,100,.12)}}
+.dot-future{background:var(--bg);color:var(--muted);border:2px solid var(--line)}
+
+.slbl-vert{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--line);writing-mode:vertical-lr;transform:rotate(180deg);margin-top:6px;line-height:1}
+
+.sprint-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sprint-name{font-size:clamp(16px,1.8vw,21px);font-weight:700;color:var(--txt);letter-spacing:-.02em}
+.sbadge{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px}
+.bd{background:var(--mist-lt);color:#009982}
+.ba{background:var(--mg-lt);color:var(--mg)}
+.bf{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.sprint-desc{font-size:12px;color:var(--muted);margin-bottom:14px}
+
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px}
+
+.dc{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;
+  padding:16px 16px 14px;position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s,border-color .2s;
+}
+.dc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,var(--mist));border-radius:12px 12px 0 0}
+.dc:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.08);border-color:rgba(0,0,0,.12)}
+.sprint-row.future .dc{opacity:.55;filter:grayscale(.15)}
+.sprint-row.future .dc:hover{opacity:.85;filter:none}
+.dc-ico{font-size:18px;margin-bottom:9px}
+.dc-t{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:4px;line-height:1.3}
+.dc-d{font-size:11px;color:var(--muted);line-height:1.5}
+.dc-list{list-style:none;margin-top:9px;display:flex;flex-direction:column;gap:5px}
+.dc-list li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#555;line-height:1.4}
+.ck{flex-shrink:0;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;margin-top:1px}
+.ck-y{background:#d4f5ef;color:#009982}
+.ck-p{background:#ffe8f0;color:var(--mg)}
+.ck-n{background:var(--bg);color:var(--muted)}
+.cprog{margin-top:10px}
+.cp-lbl{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.cp-tr{height:3px;border-radius:100px;background:var(--line);overflow:hidden}
+.cp-fi{height:100%;border-radius:100px;background:var(--c,var(--mist));transition:width 1.2s cubic-bezier(.4,0,.2,1);width:0}
+
+/* ══════════════ DIVIDER ══════════════ */
+.divider{
+  display:flex;align-items:center;gap:16px;
+  padding:52px 56px 0;max-width:100%;background:#fff;
+}
+.div-line{flex:1;height:1px;background:var(--line)}
+.div-tag{
+  display:flex;align-items:center;gap:8px;white-space:nowrap;
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.div-n{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--mg);color:#fff;font-size:9px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ══════════════ RESO ══════════════ */
+.reso-top{
+  background:var(--white);border-bottom:1px solid var(--line);
+  padding:36px 56px 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.reso-top h2{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-.03em;color:var(--txt)}
+.reso-top h2 em{color:var(--mist);font-style:normal}
+.reso-top p{font-size:13px;color:var(--muted);margin-top:6px}
+.reso-badge{background:var(--mist-lt);border:1px solid rgba(0,230,200,.25);border-radius:12px;padding:14px 26px;text-align:center;flex-shrink:0}
+.reso-badge .rb1{font-size:38px;font-weight:800;color:#009982;line-height:1;letter-spacing:-.02em}
+.reso-badge .rb2{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#009982;opacity:.6;margin-top:3px}
+
+.reso-wrap{max-width:1060px;margin:0 auto;padding:36px 56px 0;background:#fff}
+.rlbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.pill{
+  display:flex;align-items:center;gap:7px;
+  background:var(--white);border:1px solid var(--line);
+  border-radius:100px;padding:7px 14px;font-size:12px;font-weight:600;color:var(--txt);
+  transition:border-color .2s,box-shadow .2s;
+}
+.pill:hover{border-color:rgba(0,0,0,.2);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--c,var(--mist));flex-shrink:0}
+
+.flow{display:flex;align-items:center;gap:0;margin-bottom:32px;flex-wrap:wrap}
+.fn{
+  flex:1;min-width:80px;background:var(--white);border:1px solid var(--line);
+  border-radius:10px;padding:12px 10px;text-align:center;
+  transition:transform .2s,box-shadow .2s;
+}
+.fn:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.fn.hub{background:var(--mist-lt);border-color:rgba(0,230,200,.3)}
+.fn .fi{font-size:18px;margin-bottom:4px}
+.fn .ft{font-size:11px;font-weight:700;color:var(--txt)}
+.farr{padding:0 4px;color:var(--line);font-size:14px;flex-shrink:0}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--white);cursor:pointer;transition:all .2s;color:var(--muted)}
+.tab.on{background:var(--mg);border-color:var(--mg);color:#fff}
+.tab:hover:not(.on){border-color:var(--mg-md);color:var(--mg)}
+
+.panel{display:none}
+.panel.on{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.attr{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:13px;transition:box-shadow .2s}
+.attr:hover{box-shadow:0 4px 14px rgba(0,0,0,.07)}
+.atag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-bottom:7px}
+.t-b{background:var(--mist-lt);color:#009982}
+.t-co{background:var(--yell-lt);color:#a08000}
+.t-ec{background:var(--purp-lt);color:#4a5fd1}
+.t-mx{background:var(--pink-lt);color:#c0306a}
+.attr-n{font-size:12px;font-weight:700;color:var(--txt)}
+.attr-d{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+
+/* ══════════════ DESIGNS ══════════════ */
+.dis-wrap{max-width:1060px;margin:0 auto;padding:36px 56px 0;background:#fff}
+.dcards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.dcard{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;display:block;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.dcard:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08);border-color:rgba(230,0,100,.25)}
+.dprev{position:relative;height:220px;overflow:hidden;background:#f5f5f7}
+.dprev iframe{width:200%;height:200%;border:none;transform:scale(.5);transform-origin:top left;pointer-events:none}
+.dprev-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,
+    #fff 0%,
+    #fff 22%,
+    rgba(255,255,255,.6) 50%,
+    rgba(255,255,255,.95) 80%,
+    #fff 100%);
+}
+.dfoot{padding:14px 20px 16px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line)}
+.dname{font-size:14px;font-weight:700;color:var(--txt)}
+.dopen{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:700;color:var(--mg);
+  background:var(--mg-lt);border:1px solid var(--mg-md);
+  padding:4px 12px;border-radius:100px;transition:background .2s;
+}
+.dcard:hover .dopen{background:var(--mg);color:#fff;border-color:var(--mg)}
+.dopen svg{width:10px;height:10px}
+
+.api-card{border-color:var(--line)}
+.api-logo{
+  height:40px;display:flex;align-items:center;
+  margin-bottom:4px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.api-logo svg{height:36px;width:auto;max-width:100%}
+
+/* ══════════════ FOOTER ══════════════ */
+.footer{
+  border-top:1px solid var(--line);background:var(--white);
+  margin-top:52px;padding:20px 56px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--muted);
+}
+.footer strong{color:var(--mg)}
+
+/* animations */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:720px){
+  .nav,.hero,.roadmap,.divider,.reso-top,.reso-wrap,.dis-wrap,.footer{padding-left:24px;padding-right:24px}
+  .roadmap::before{left:calc(24px + 27px)}
+  .sprint-row{grid-template-columns:48px 1fr;gap:0 16px}
+  .sdot{width:48px;height:48px;font-size:11px}
+  .kpi-bar{flex-wrap:wrap}
+  .panel.on,.dcards{grid-template-columns:1fr 1fr}
+  .flow{gap:4px}.farr{display:none}
+  .footer{flex-direction:column;gap:6px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Vive<span>home</span></div>
+  <div class="nav-links">
+    <a class="nav-a on" href="#s1">Hoja de Ruta</a>
+    <a class="nav-a" href="#s2">Estándar RESO</a>
+    <a class="nav-a" href="#s3">Diseños</a>
+  </div>
+</nav>
+
+
+<!-- ══════ S1 · HOJA DE RUTA ══════ -->
+<div id="s1"></div>
+
+<header class="hero">
+  <div>
+    <div class="hero-eyebrow"><span class="dot"></span><span>Vivehome · Fraktal Software · Abril 2026</span></div>
+    <h1><em>Vivehome Apex</em></h1>
+    <p>Plataforma Administrativa · Rediseño &amp; Modernización</p>
+  </div>
+  <div class="kpi-bar">
+    <div class="kpi"><div class="kpi-n" style="color:#009982"><span class="counter" data-target="9">0</span></div><div class="kpi-l">Completadas</div></div>
+    <div class="kpi"><div class="kpi-n" style="color:var(--mg)"><span class="counter" data-target="2">0</span></div><div class="kpi-l">En progreso</div></div>
+    <div class="kpi"><div class="kpi-n" style="color:var(--purple)"><span class="counter" data-target="7">0</span></div><div class="kpi-l">Épicas</div></div>
+    <div class="kpi"><div class="kpi-n" style="color:var(--txt)">S<span class="counter" data-target="1">0</span></div><div class="kpi-l">Sprint activo</div></div>
+  </div>
+</header>
+
+<div class="roadmap">
+
+  <!-- S0 -->
+  <div class="sprint-row reveal">
+    <div class="sprint-left"><div class="sdot dot-done">S0</div><div class="slbl-vert">Hecho</div></div>
+    <div class="sprint-right">
+      <div class="sprint-header"><span class="sprint-name">Diseño y Product Discovery</span><span class="sbadge bd">✓ Completado</span></div>
+      <p class="sprint-desc">Infraestructura, DevOps, Discovery y base técnica del proyecto.</p>
+      <div class="cgrid">
+        <div class="dc" style="--c:var(--mist)"><div class="dc-ico">☁️</div><div class="dc-t">Infraestructura AWS</div><div class="dc-d">3 ambientes provisionados.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Oqtane desplegado en AWS</li><li><span class="ck ck-y">✓</span>Pantalla inicial con identidad</li><li><span class="ck ck-y">✓</span>.NET 8 Clean Architecture</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100"></div></div></div></div>
+        <div class="dc" style="--c:var(--mist)"><div class="dc-ico">⚙️</div><div class="dc-t">DevOps &amp; CI/CD</div><div class="dc-d">Flujo automatizado end-to-end.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>GitHub GitFlow + protección</li><li><span class="ck ck-y">✓</span>Pipeline CI/CD — 3 ambientes</li><li><span class="ck ck-y">✓</span>Docker multi-stage</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100"></div></div></div></div>
+        <div class="dc" style="--c:var(--mist)"><div class="dc-ico">🗂️</div><div class="dc-t">Gestión del Proyecto</div><div class="dc-d">Trazabilidad desde el día 0.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Azure DevOps: sprints S0–S6</li><li><span class="ck ck-y">✓</span>Backlog con 40+ historias</li><li><span class="ck ck-y">✓</span>Trazabilidad AB#ID por commit</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100"></div></div></div></div>
+        <div class="dc" style="--c:#f5a623"><div class="dc-ico">🔭</div><div class="dc-t">Product Discovery</div><div class="dc-d">Definición completa antes de código.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Multi-país · multi-moneda · multi-rol</li><li><span class="ck ck-y">✓</span>Estándar RESO definido</li><li><span class="ck ck-y">✓</span>Integraciones Zoho CRM</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100" style="background:#f5a623"></div></div></div></div>
+        <div class="dc" style="--c:var(--purple)"><div class="dc-ico">🎨</div><div class="dc-t">Design System &amp; UI</div><div class="dc-d">Sistema visual listo para el equipo.</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Design guidelines de marca</li><li><span class="ck ck-y">✓</span>Pantallas admin y cotización</li><li><span class="ck ck-y">✓</span>Recursos gráficos e iconografía</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>100%</span></div><div class="cp-tr"><div class="cp-fi" data-w="100" style="background:var(--purple)"></div></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S1 -->
+  <div class="sprint-row reveal" style="transition-delay:.08s">
+    <div class="sprint-left"><div class="sdot dot-active">S1</div><div class="slbl-vert" style="color:var(--mg-md)">Activo</div></div>
+    <div class="sprint-right">
+      <div class="sprint-header"><span class="sprint-name">Infraestructura e Inicio de Login</span><span class="sbadge ba">● En curso</span></div>
+      <p class="sprint-desc">Acceso seguro y estructura base del panel administrativo.</p>
+      <div class="cgrid">
+        <div class="dc" style="--c:var(--mg)"><div class="dc-ico">🔐</div><div class="dc-t">Autenticación</div><ul class="dc-list"><li><span class="ck ck-y">✓</span>Login con correo y contraseña</li><li><span class="ck ck-p">↻</span>Recuperación de contraseña</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>60%</span></div><div class="cp-tr"><div class="cp-fi" data-w="60" style="background:var(--mg)"></div></div></div></div>
+        <div class="dc" style="--c:var(--pink)"><div class="dc-ico">👤</div><div class="dc-t">Roles y Permisos</div><ul class="dc-list"><li><span class="ck ck-p">↻</span>Asesor vs. Administrador</li><li><span class="ck ck-p">↻</span>Perfil de usuario y avatar</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>30%</span></div><div class="cp-tr"><div class="cp-fi" data-w="30" style="background:var(--pink)"></div></div></div></div>
+        <div class="dc" style="--c:var(--purple)"><div class="dc-ico">🖥️</div><div class="dc-t">Layout Admin</div><ul class="dc-list"><li><span class="ck ck-p">↻</span>Sidebar + header + contenido</li><li><span class="ck ck-p">↻</span>Tema UI con identidad Viventa</li></ul><div class="cprog"><div class="cp-lbl"><span>Progreso</span><span>40%</span></div><div class="cp-tr"><div class="cp-fi" data-w="40" style="background:var(--purple)"></div></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="sprint-row future reveal" style="transition-delay:.12s">
+    <div class="sprint-left"><div class="sdot dot-future">S2</div></div>
+    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">Gestión de Proyectos Inmobiliarios</span><span class="sbadge bf">Próximo</span></div><p class="sprint-desc">CRUD completo con multimedia, mapas y disponibilidad.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🏢</div><div class="dc-t">CRUD de Proyectos</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Crear / Editar / Listar</li><li><span class="ck ck-n">○</span>Precios y plan de pagos</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🖼️</div><div class="dc-t">Multimedia &amp; Mapas</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Galería, video y recorrido 360°</li><li><span class="ck ck-n">○</span>Google Maps integrado</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🔍</div><div class="dc-t">Buscador y Filtros</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Filtros básicos y avanzados</li><li><span class="ck ck-n">○</span>Vista carátula y detalle</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🌍</div><div class="dc-t">PoC RESO</div></div></div>
+  </div>
+
+  <!-- S3 -->
+  <div class="sprint-row future reveal" style="transition-delay:.16s">
+    <div class="sprint-left"><div class="sdot dot-future">S3</div></div>
+    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">CRM &amp; Inicio Cotizador</span><span class="sbadge bf">Próximo</span></div><p class="sprint-desc">Zoho CRM conectado y flujo de cotización desde prospecto.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🤝</div><div class="dc-t">Zoho CRM</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Prospectos del asesor</li><li><span class="ck ck-n">○</span>Iniciar cotización desde CRM</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">📋</div><div class="dc-t">Cotizador — Selección</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Hasta 3 inmuebles comparables</li><li><span class="ck ck-n">○</span>Configuración de parámetros</li></ul></div></div></div>
+  </div>
+
+  <!-- S4 -->
+  <div class="sprint-row future reveal" style="transition-delay:.2s">
+    <div class="sprint-left"><div class="sdot dot-future">S4</div></div>
+    <div class="sprint-right">
+      <div class="sprint-header"><span class="sprint-name">Integraciones</span><span class="sbadge bf">Próximo</span></div>
+      <p class="sprint-desc">Cotizaciones comparativas, simulador de crédito e integración con APIs de constructoras.</p>
+      <div class="cgrid">
+        <div class="dc" style="--c:#ccc"><div class="dc-ico">💰</div><div class="dc-t">Cotizador Comparativo</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Cálculos financieros automáticos</li><li><span class="ck ck-n">○</span>Correo PDF + historial</li></ul></div>
+        <div class="dc" style="--c:#ccc"><div class="dc-ico">🏦</div><div class="dc-t">Simulador de Crédito</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Simulación hipotecaria</li><li><span class="ck ck-n">○</span>Cotización del crédito</li></ul></div>
+
+        <!-- Jaramillo Mora -->
+        <div class="dc api-card" style="--c:#ccc">
+          <div class="dc-ico">🏗️</div>
+          <div class="dc-t">Integración Jaramillo Mora</div>
+          <ul class="dc-list" style="margin-top:10px">
+            <li><span class="ck ck-n">○</span>OData / SAP C4C · leads y clientes</li>
+            <li><span class="ck ck-n">○</span>Sincronización de prospectos</li>
+            <li><span class="ck ck-n">○</span>Registro de cotizaciones en CRM</li>
+          </ul>
+        </div>
+
+        <!-- Bienes y Bienes -->
+        <div class="dc api-card" style="--c:#ccc">
+          <div class="dc-ico">🏢</div>
+          <div class="dc-t">Integración Bienes &amp; Bienes</div>
+          <ul class="dc-list" style="margin-top:10px">
+            <li><span class="ck ck-n">○</span>GET /projects/list · listado de proyectos</li>
+            <li><span class="ck ck-n">○</span>GET /projects/{id}/inventory</li>
+            <li><span class="ck ck-n">○</span>Auth JWT · apibyb.bienesybienes.com</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div class="sprint-row future reveal" style="transition-delay:.24s">
+    <div class="sprint-left"><div class="sdot dot-future">S5</div></div>
+    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">Cotización</span><span class="sbadge bf">Próximo</span></div><p class="sprint-desc">Portal público con cotización interactiva para el cliente.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🌐</div><div class="dc-t">Página Pública</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Info de proyectos y cliente</li><li><span class="ck ck-n">○</span>Navegación multimedia</li></ul></div></div></div>
+  </div>
+
+  <!-- S6 -->
+  <div class="sprint-row future reveal" style="transition-delay:.28s">
+    <div class="sprint-left"><div class="sdot dot-future">S6</div></div>
+    <div class="sprint-right"><div class="sprint-header"><span class="sprint-name">QA &amp; Go-Live</span><span class="sbadge bf">Cierre</span></div><p class="sprint-desc">Pruebas integrales y lanzamiento en producción.</p><div class="cgrid"><div class="dc" style="--c:#ccc"><div class="dc-ico">🧪</div><div class="dc-t">Calidad &amp; No Funcionales</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Performance y seguridad</li><li><span class="ck ck-n">○</span>Multi-país · multi-lenguaje</li></ul></div><div class="dc" style="--c:#ccc"><div class="dc-ico">🚀</div><div class="dc-t">Lanzamiento</div><ul class="dc-list"><li><span class="ck ck-n">○</span>Go-live en producción AWS</li><li><span class="ck ck-n">○</span>Funcionalidades terminadas</li><li><span class="ck ck-n">○</span>Capacitación herramienta</li></ul></div></div></div>
+  </div>
+
+</div><!-- /roadmap -->
+
+
+<!-- ══════ S2 · RESO ══════ -->
+<div class="divider reveal" id="s2">
+  <div class="div-line"></div>
+  <div class="div-tag"><span class="div-n">2</span>Estándar RESO</div>
+  <div class="div-line"></div>
+</div>
+
+<div class="reso-top">
+  <div>
+    <h2>Estándar <em>RESO</em></h2>
+    <p>La base de propiedades de clase mundial para una PropTech global</p>
+  </div>
+  <div class="reso-badge"><div class="rb1">RESO</div><div class="rb2">Real Estate Standards Org.</div></div>
+</div>
+
+<div class="reso-wrap">
+  <div class="rlbl reveal">Por qué RESO</div>
+  <div class="pills reveal" style="transition-delay:.05s">
+    <div class="pill" style="--c:var(--mist)"><span class="pdot"></span>🌍 Estándar mundial</div>
+    <div class="pill" style="--c:var(--purple)"><span class="pdot" style="background:var(--purple)"></span>🧩 Extensible por país</div>
+    <div class="pill" style="--c:#f5a623"><span class="pdot" style="background:#f5a623"></span>🔍 Google Real Estate nativo</div>
+    <div class="pill" style="--c:var(--mg)"><span class="pdot" style="background:var(--mg)"></span>🔄 Multi-país sin re-arquitectura</div>
+    <div class="pill" style="--c:var(--pink)"><span class="pdot" style="background:var(--pink)"></span>🔌 Futuros sistemas listos</div>
+    <div class="pill" style="--c:#009982"><span class="pdot" style="background:#009982"></span>🏆 Posicionamiento PropTech</div>
+  </div>
+
+  <div class="rlbl reveal">Un dato · múltiples destinos</div>
+  <div class="flow reveal" style="transition-delay:.05s">
+    <div class="fn"><div class="fi">🏗️</div><div class="ft">Admin</div></div>
+    <div class="farr">→</div>
+    <div class="fn hub"><div class="fi">⚙️</div><div class="ft">Motor RESO</div></div>
+    <div class="farr">→</div>
+    <div class="fn"><div class="fi">🔍</div><div class="ft">Google</div></div>
+    <div class="farr">→</div>
+    <div class="fn"><div class="fi">💻</div><div class="ft">Portal Viventa</div></div>
+    <div class="farr">→</div>
+    <div class="fn"><div class="fi">📊</div><div class="ft">Cotizador</div></div>
+    <div class="farr">→</div>
+    <div class="fn"><div class="fi">🚀</div><div class="ft">Futuros sistemas</div></div>
+  </div>
+
+  <div class="rlbl reveal">Extensiones por país</div>
+  <div class="reveal" style="transition-delay:.05s">
+    <div class="tabs">
+      <div class="tab on" onclick="sw('co',this)">🇨🇴 Colombia</div>
+      <div class="tab" onclick="sw('ec',this)">🇪🇨 Ecuador</div>
+      <div class="tab" onclick="sw('mx',this)">🇲🇽 México</div>
+      <div class="tab" onclick="sw('base',this)">🌎 Core RESO</div>
+    </div>
+    <div class="panel on" id="p-co">
+      <div class="attr"><div class="atag t-co">COL</div><div class="attr-n">Prima de Altura</div><div class="attr-d">Cargo adicional por piso en edificios</div></div>
+      <div class="attr"><div class="atag t-co">COL</div><div class="attr-n">Subsidio VIS / VIP</div><div class="attr-d">Vivienda de interés social</div></div>
+      <div class="attr"><div class="atag t-co">COL</div><div class="attr-n">Estrato</div><div class="attr-d">Clasificación socioeconómica 1–6</div></div>
+      <div class="attr"><div class="atag t-co">COL</div><div class="attr-n">Fiduciaria</div><div class="attr-d">Entidad que administra la preventa</div></div>
+    </div>
+    <div class="panel" id="p-ec">
+      <div class="attr"><div class="atag t-ec">ECU</div><div class="attr-n">Alícuota</div><div class="attr-d">Cuota de mantenimiento de áreas comunes</div></div>
+      <div class="attr"><div class="atag t-ec">ECU</div><div class="attr-n">BIESS Hipotecario</div><div class="attr-d">Compatibilidad con préstamos del IESS</div></div>
+      <div class="attr"><div class="atag t-ec">ECU</div><div class="attr-n">Régimen de Propiedad</div><div class="attr-d">Individual, horizontal, cooperativa</div></div>
+      <div class="attr"><div class="atag t-b">Core</div><div class="attr-n">Precio (USD)</div><div class="attr-d">Motor multimoneda automático</div></div>
+    </div>
+    <div class="panel" id="p-mx">
+      <div class="attr"><div class="atag t-mx">MEX</div><div class="attr-n">INFONAVIT</div><div class="attr-d">Fondo de vivienda para trabajadores</div></div>
+      <div class="attr"><div class="atag t-mx">MEX</div><div class="attr-n">Escrituración</div><div class="attr-d">Proceso notarial obligatorio</div></div>
+      <div class="attr"><div class="atag t-mx">MEX</div><div class="attr-n">Régimen Ejidal</div><div class="attr-d">Restricciones especiales de venta</div></div>
+      <div class="attr"><div class="atag t-b">Core</div><div class="attr-n">MLS ID</div><div class="attr-d">Interoperabilidad con MLS regionales</div></div>
+    </div>
+    <div class="panel" id="p-base">
+      <div class="attr"><div class="atag t-b">Core</div><div class="attr-n">ListingKey</div><div class="attr-d">ID único universal</div></div>
+      <div class="attr"><div class="atag t-b">Core</div><div class="attr-n">ListPrice</div><div class="attr-d">Precio multi-divisa</div></div>
+      <div class="attr"><div class="atag t-b">Core</div><div class="attr-n">Coordinates</div><div class="attr-d">GPS para Google Maps</div></div>
+      <div class="attr"><div class="atag t-b">Core</div><div class="attr-n">Media</div><div class="attr-d">Fotos, video, recorrido 360°</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════ S3 · DISEÑOS ══════ -->
+<div class="divider reveal" id="s3" style="transition-delay:.05s">
+  <div class="div-line"></div>
+  <div class="div-tag"><span class="div-n">3</span>Diseños</div>
+  <div class="div-line"></div>
+</div>
+
+<div class="dis-wrap">
+  <div class="dcards reveal" style="transition-delay:.05s">
+    <a class="dcard" href="https://pose-iron-54745003.figma.site/" target="_blank">
+      <div class="dprev"><iframe src="https://pose-iron-54745003.figma.site/" loading="lazy" title="Admin"></iframe><div class="dprev-ov"></div></div>
+      <div class="dfoot"><span class="dname">Admin Vivehome</span><span class="dopen">Abrir <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg></span></div>
+    </a>
+    <a class="dcard" href="https://ideate-chomp-22006097.figma.site/" target="_blank">
+      <div class="dprev"><iframe src="https://ideate-chomp-22006097.figma.site/" loading="lazy" title="Cotización"></iframe><div class="dprev-ov"></div></div>
+      <div class="dfoot"><span class="dname">Cotizador Vivehome</span><span class="dopen">Abrir <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg></span></div>
+    </a>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span>Fraktal Software · Vivehome Apex · 2026</span>
+  <span><strong>Construyendo el futuro de Viventa</strong> 🚀</span>
+</footer>
+
+<script>
+// reveal + progress bars
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('.cp-fi').forEach(b => b.style.width = b.dataset.w + '%');
+    io.unobserve(e.target);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(r => io.observe(r));
+
+// counters
+const cio = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const t = parseInt(e.target.dataset.target), step = t / 60; let c = 0;
+    const tm = setInterval(() => { c = Math.min(c+step,t); e.target.textContent = Math.round(c); if(c>=t) clearInterval(tm); }, 16);
+    cio.unobserve(e.target);
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.counter').forEach(el => cio.observe(el));
+
+// country tabs
+function sw(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('p-' + id).classList.add('on');
+}
+
+// active nav
+const secs = [
+  { id:'s1', el: document.querySelector('a[href="#s1"]') },
+  { id:'s2', el: document.querySelector('a[href="#s2"]') },
+  { id:'s3', el: document.querySelector('a[href="#s3"]') },
+];
+const nio = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      secs.forEach(s => s.el.classList.remove('on'));
+      const m = secs.find(s => s.id === e.target.id);
+      if (m) m.el.classList.add('on');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '-50px 0px -60% 0px' });
+secs.forEach(s => { const el = document.getElementById(s.id); if(el) nio.observe(el); });
+</script>
+</body>
+</html>
