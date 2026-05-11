@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Álbum Panini Mundial 2026 - Juan José Areiza Estrada</title>
+<meta name="description" content="Tracker del álbum Panini FIFA World Cup 2026 - Juan José Areiza Estrada">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a1628; --surface: #0f1f3d; --border: #1e3a5f;
+    --gold: #ffd700; --green: #22c55e; --green-l: #34d399;
+    --red: #f87171; --yellow: #fbbf24; --blue: #3b82f6;
+    --text: #e2e8f0; --muted: #94a3b8; --dim: #64748b; --dark: #475569;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Barlow Condensed', 'Segoe UI', system-ui, sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family: var(--font-body); background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+  button { font-family:inherit; cursor:pointer; }
+  input { font-family:inherit; }
+
+  /* Header */
+  .header { background:linear-gradient(135deg,#000 0%,#111827 50%,#1a1a2e 100%); padding:14px 16px 12px; position:sticky; top:0; z-index:100; border-bottom:3px solid var(--gold); }
+  .header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .header-left { display:flex; align-items:center; gap:10px; }
+  .header-logo { width:48px; height:48px; object-fit:contain; border-radius:6px; }
+  .header-title { font-family:var(--font-display); font-size:16px; color:#fff; letter-spacing:1.5px; line-height:1.1; }
+  .header-name { font-size:11px; color:var(--gold); letter-spacing:.5px; font-weight:600; }
+  .header-pct { font-family:var(--font-display); font-size:32px; color:var(--gold); line-height:1; text-align:right; }
+  .header-pct-label { font-size:10px; color:#b3d9ff; text-align:right; }
+
+  /* Progress bar */
+  .progress-track { background:rgba(0,0,0,.3); border-radius:6px; height:10px; overflow:hidden; margin-bottom:10px; }
+  .progress-fill { height:100%; border-radius:6px; background:linear-gradient(90deg,var(--gold),#ff8c00); transition:width .5s ease; }
+
+  /* Stats row */
+  .stats-row { display:flex; gap:8px; }
+  .stat-card { flex:1; background:rgba(0,0,0,.25); border-radius:8px; padding:6px 8px; text-align:center; }
+  .stat-label { font-size:10px; color:var(--muted); letter-spacing:1px; }
+  .stat-value { font-family:var(--font-display); font-size:22px; }
+
+  /* Tabs */
+  .tabs { display:flex; background:var(--surface); border-bottom:1px solid var(--border); }
+  .tab-btn { flex:1; padding:10px 0; border:none; font-size:13px; font-weight:700; letter-spacing:1px; font-family:var(--font-body); background:transparent; color:var(--dim); border-bottom:2px solid transparent; transition:all .2s; }
+  .tab-btn.active { background:#003580; color:var(--gold); border-bottom-color:var(--gold); }
+
+  /* Content */
+  .content { padding:12px; }
+
+  /* Section titles */
+  .section-title { font-family:var(--font-display); font-size:18px; color:var(--gold); letter-spacing:2px; margin-bottom:8px; }
+
+  /* Special sticker grid */
+  .special-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:16px; }
+
+  /* Sticker cell */
+  .sticker-cell { padding:8px 4px; border-radius:8px; border:2px solid var(--border); background:rgba(30,58,95,.6); text-align:center; cursor:pointer; transition:all .15s; }
+  .sticker-cell[data-state="pegada"] { background:rgba(34,197,94,.2); border-color:var(--green); }
+  .sticker-cell[data-state="repetida"] { background:rgba(251,191,36,.2); border-color:var(--yellow); }
+  .sticker-code { font-weight:700; font-size:11px; color:var(--dim); }
+  .sticker-cell[data-state="pegada"] .sticker-code { color:var(--green-l); }
+  .sticker-cell[data-state="repetida"] .sticker-code { color:var(--yellow); }
+  .sticker-name { font-size:9px; margin-top:2px; opacity:.8; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .sticker-rep-badge { font-size:8px; margin-top:2px; }
+
+  /* Teams grid */
+  .teams-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+  .team-card { padding:10px; border-radius:10px; border:2px solid var(--border); background:rgba(30,58,95,.5); cursor:pointer; text-align:left; transition:all .15s; }
+  .team-card.complete { background:rgba(34,197,94,.15); border-color:var(--green); }
+  .team-top { display:flex; align-items:center; justify-content:space-between; }
+  .team-info { display:flex; align-items:center; gap:6px; }
+  .team-flag { font-size:20px; }
+  .team-name { font-weight:700; font-size:14px; color:var(--text); }
+  .team-sub { font-size:10px; color:var(--dim); }
+  .team-pct { font-family:var(--font-display); font-size:20px; }
+  .team-progress { background:rgba(0,0,0,.3); border-radius:4px; height:4px; margin-top:6px; overflow:hidden; }
+  .team-progress-fill { height:100%; border-radius:4px; transition:width .3s; }
+
+  /* Back button */
+  .back-btn { background:rgba(30,58,95,.6); border:1px solid var(--border); color:#7dd3fc; padding:6px 14px; border-radius:6px; font-size:12px; font-weight:600; margin-bottom:12px; }
+
+  /* Album page */
+  .album-page { border-radius:16px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,.4); }
+  .album-header { padding:16px 16px 10px; }
+  .album-we-are { font-size:11px; letter-spacing:4px; color:var(--muted); }
+  .album-country { font-family:var(--font-display); font-size:28px; color:#fff; letter-spacing:2px; line-height:1; }
+  .album-meta { font-size:11px; color:var(--muted); }
+  .album-hint { padding:6px 16px; font-size:10px; color:var(--dim); text-align:center; border-bottom:1px solid rgba(255,255,255,.05); }
+  .album-stickers { padding:12px; display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+
+  /* Player sticker in album */
+  .player-sticker { padding:8px 4px; border-radius:10px; border:2px solid #1e293b; background:rgba(15,23,42,.8); text-align:center; aspect-ratio:3/4; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; position:relative; transition:all .15s; }
+  .player-sticker .icon { font-size:20px; }
+  .player-sticker .code { font-family:var(--font-body); font-weight:700; font-size:11px; color:var(--dark); margin-top:4px; }
+  .player-sticker .pname { font-size:8px; color:#334155; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; padding:0 2px; }
+  .player-sticker .badge { position:absolute; top:3px; right:3px; border-radius:50%; width:14px; height:14px; display:flex; align-items:center; justify-content:center; font-size:8px; }
+
+  .player-sticker[data-state="pegada"] { border-color:currentColor; box-shadow:0 0 12px rgba(0,0,0,.2); }
+  .player-sticker[data-state="pegada"] .icon { font-size:22px; }
+  .player-sticker[data-state="pegada"] .code { color:var(--text); }
+  .player-sticker[data-state="pegada"] .pname { color:var(--muted); }
+  .player-sticker[data-state="pegada"] .badge { background:var(--green); }
+
+  .player-sticker[data-state="repetida"] { background:linear-gradient(145deg,rgba(251,191,36,.3),rgba(251,191,36,.15)); border-color:var(--yellow); box-shadow:0 0 12px rgba(251,191,36,.2); }
+  .player-sticker[data-state="repetida"] .code { color:var(--yellow); }
+  .player-sticker[data-state="repetida"] .pname { color:var(--yellow); }
+  .player-sticker[data-state="repetida"] .badge { background:var(--yellow); }
+
+  .player-sticker .icon-empty { opacity:.3; font-size:20px; }
+
+  /* List view */
+  .search-input { width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-size:13px; margin-bottom:8px; }
+  .filter-row { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+  .filter-btn { padding:5px 10px; border-radius:6px; border:none; font-size:11px; font-weight:600; background:rgba(30,58,95,.5); color:var(--muted); }
+  .filter-btn.active { background:#003580; color:var(--gold); }
+  .list-container { display:flex; flex-direction:column; gap:3px; }
+  .list-item { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:8px; border:none; cursor:pointer; text-align:left; background:rgba(15,23,42,.6); border-left:3px solid var(--border); width:100%; }
+  .list-item[data-state="pegada"] { background:rgba(34,197,94,.1); border-left-color:var(--green); }
+  .list-item[data-state="repetida"] { background:rgba(251,191,36,.1); border-left-color:var(--yellow); }
+  .list-item-left { display:flex; align-items:center; gap:10px; flex:1; min-width:0; }
+  .list-flag { font-size:16px; flex-shrink:0; }
+  .list-code { font-weight:700; font-size:13px; }
+  .list-name { font-size:12px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .list-section { font-size:10px; color:var(--dark); }
+  .list-status { font-size:12px; flex-shrink:0; }
+
+  /* Sync panel */
+  .sync-panel { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px; }
+  .sync-title { font-family:var(--font-display); font-size:16px; color:var(--gold); letter-spacing:1px; margin-bottom:10px; }
+  .sync-btns { display:flex; gap:8px; flex-wrap:wrap; }
+  .sync-btn { padding:8px 14px; border-radius:8px; border:none; font-size:12px; font-weight:600; color:#fff; transition:all .15s; }
+  .sync-btn:active { transform:scale(.96); }
+  .sync-export { background:#2563eb; }
+  .sync-import { background:#7c3aed; }
+  .sync-link { background:#059669; }
+  .sync-reset { background:#dc2626; }
+
+  /* Toast */
+  .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#1e293b; color:var(--text); padding:10px 20px; border-radius:10px; font-size:13px; font-weight:600; z-index:999; border:1px solid var(--border); box-shadow:0 8px 24px rgba(0,0,0,.5); opacity:0; transition:opacity .3s; pointer-events:none; }
+  .toast.show { opacity:1; }
+
+  /* Footer */
+  .footer { text-align:center; padding:20px 12px 32px; font-size:10px; color:#334155; }
+
+  /* Empty state */
+  .empty-state { text-align:center; padding:32px; color:var(--dark); }
+
+  /* Modal */
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .modal { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; max-width:400px; width:100%; }
+  .modal-title { font-family:var(--font-display); font-size:20px; color:var(--gold); margin-bottom:12px; }
+  .modal-text { font-size:13px; color:var(--muted); margin-bottom:16px; line-height:1.5; }
+  .modal-btns { display:flex; gap:8px; }
+  .modal-btn { flex:1; padding:10px; border:none; border-radius:8px; font-size:13px; font-weight:600; }
+  .modal-cancel { background:rgba(30,58,95,.6); color:var(--muted); }
+  .modal-confirm { background:#dc2626; color:#fff; }
+
+  @media(min-width:600px) {
+    .special-grid { grid-template-columns:repeat(5,1fr); }
+    .teams-grid { grid-template-columns:repeat(3,1fr); }
+    .album-stickers { grid-template-columns:repeat(5,1fr); }
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// STICKER DATA
+// ══════════════════════════════════════════════════════════════
+const LOGO_B64 = "data:image/jpeg;base64,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";
+
+const INTRO = [
+  {c:"00",n:"Logo Panini",s:"Panini"},{c:"FWC1",n:"Emblema Oficial 1/2",s:"FIFA WC 2026"},{c:"FWC2",n:"Emblema Oficial 2/2",s:"FIFA WC 2026"},{c:"FWC3",n:"Mascotas Oficiales",s:"FIFA WC 2026"},{c:"FWC4",n:"Eslogan Oficial",s:"FIFA WC 2026"},{c:"FWC5",n:"Balón Oficial",s:"FIFA WC 2026"},{c:"FWC6",n:"Canadá (Sede)",s:"Países Sede"},{c:"FWC7",n:"México (Sede)",s:"Países Sede"},{c:"FWC8",n:"USA (Sede)",s:"Países Sede"},
+  {c:"FWC9",n:"Italia 1934",s:"Museo FIFA"},{c:"FWC10",n:"Uruguay 1950",s:"Museo FIFA"},{c:"FWC11",n:"Alemania 1954",s:"Museo FIFA"},{c:"FWC12",n:"Brasil 1962",s:"Museo FIFA"},{c:"FWC13",n:"Alemania 1974",s:"Museo FIFA"},{c:"FWC14",n:"Argentina 1986",s:"Museo FIFA"},{c:"FWC15",n:"Brasil 1994",s:"Museo FIFA"},{c:"FWC16",n:"Brasil 2002",s:"Museo FIFA"},{c:"FWC17",n:"Italia 2006",s:"Museo FIFA"},{c:"FWC18",n:"Alemania 2014",s:"Museo FIFA"},{c:"FWC19",n:"Argentina 2022",s:"Museo FIFA"},
+];
+
+const T=[
+  {p:"ALG",n:"Argelia",f:"🇩🇿",cl:"#009639",pl:["Emblema","Alexis Guendouz","Ramy Bensebaini","Youcef Atal","Rayan Aït-Nouri","M. Amine Tougai","Aïssa Mandi","Ismael Bennacer","Houssem Aquar","Hicham Boudaoui","Ramiz Zerrouki","Nabil Bentalab","Foto Equipo","Farés Chaibi","Riyad Mahrez","Said Benrhama","Anis Hadj Moussa","Amine Gouiri","Baghdad Bounedjah","Mohammed Amoura"]},
+  {p:"ARG",n:"Argentina",f:"🇦🇷",cl:"#75AADB",pl:["Emblema","E. Martínez","Nahuel Molina","Cristian Romero","N. Otamendi","N. Tagliafico","L. Balerdi","Enzo Fernández","Alexis Mac Allister","Rodrigo De Paul","E. Palacios","L. Paredes","Foto Equipo","Nico Paz","F. Mastantuono","Nico González","Lionel Messi","Lautaro Martínez","Julián Álvarez","G. Simeone"]},
+  {p:"AUS",n:"Australia",f:"🇦🇺",cl:"#FFCD00",pl:["Emblema","Mathew Ryan","Joe Gauci","Harry Souttar","A. Circati","Jordan Bos","Aziz Behich","C. Burgess","Lewis Miller","Milos Degenek","Jackson Irvine","Riley McGree","Foto Equipo","Aiden O'Neill","C. Metcalfe","P. Yazbek","Craig Goodwin","Kusini Vengi","N. Irankunda","Mohamed Touré"]},
+  {p:"AUT",n:"Austria",f:"🇦🇹",cl:"#ED2939",pl:["Emblema","A. Schlager","Patrick Pentz","David Alaba","Kevin Danso","P. Lienhart","Stefan Bosch","P. Mwene","A. Prass","X. Schlager","Marcel Sabitzer","Konrad Laimer","Foto Equipo","F. Grillitsch","N. Seiwald","Romano Schmid","P. Wimmer","C. Baumgartner","M. Gregoritsch","M. Arnautović"]},
+  {p:"BEL",n:"Bélgica",f:"🇧🇪",cl:"#ED2939",pl:["Emblema","T. Courtois","Arthur Theate","T. Castagne","Zeno Debast","B. Mechele","M. De Cuyper","T. Meunier","Y. Tielemans","Amadou Onana","Nicolas Raskin","A. Saelemaekers","Foto Equipo","Hans Vanaken","K. De Bruyne","Jérémy Doku","C. De Ketelaere","L. Trossard","Loïs Openda","R. Lukaku"]},
+  {p:"BIH",n:"Bosnia y Herz.",f:"🇧🇦",cl:"#002395",pl:["Emblema","Nikola Vasilj","Amer Dedic","S. Kolasinac","T. Muharemovic","N. Mujakic","Nikola Katic","A. Hadziahmetovic","B. Tahirovic","Armin Gigovic","Ivan Sunjic","Ivan Basic","Foto Equipo","Dzenis Burnic","E. Bajraktarevic","Amar Memic","E. Demirovic","Edin Dzeko","S. Bazdar","H. Tabakovic"]},
+  {p:"BRA",n:"Brasil",f:"🇧🇷",cl:"#009C3B",pl:["Emblema","Alisson","Bento","Marquinhos","Éder Militão","G. Magalhães","Danilo","Wesley","Lucas Paquetá","Casemiro","B. Guimarães","Luiz Henrique","Foto Equipo","Vinícius Jr.","Rodrygo","João Pedro","Matheus Cunha","G. Martinelli","Raphinha","Estévão"]},
+  {p:"CAN",n:"Canadá",f:"🇨🇦",cl:"#FF0000",pl:["Emblema","Dayne St.Clair","Alphonso Davies","A. Johnston","S. Adekugbe","Riche Larvea","D. Cornelius","Moïse Bombito","Kamal Miller","S. Eustáquio","Ismaël Koné","J. Osorio","Foto Equipo","J. Shaffelburg","M. Choinière","Niko Sigur","T. Buchanan","Liam Millar","Cyle Larin","Jonathan David"]},
+  {p:"CPV",n:"Cabo Verde",f:"🇨🇻",cl:"#003893",pl:["Emblema","Vozinha","Logan Costa","Pico","Diney","S. Moreira","Wagner Pina","Joao Paulo","Y. Semedo","Kevin Pina","P. Andrade","J. Monteiro","Foto Equipo","Deroy Duarte","G. Rodrigues","Jovane Cabral","Ryan Mendes","D. Livramento","Willy Semedo","Bebe"]},
+  {p:"CIV",n:"Costa de Marfil",f:"🇨🇮",cl:"#FF8200",pl:["Emblema","Yahia Fofana","G. Konan","Wilfried Singo","O. Kossounou","Evan Ndicka","Willy Boly","E. Agbadou","O. Diomande","Franck Kessie","Seko Fofana","I. Sangare","Foto Equipo","J-P. Gbamin","Amad Diallo","S. Haller","Simon Adringa","Yan Diomande","E. Guessand","Oumar Diakite"]},
+  {p:"COD",n:"RD Congo",f:"🇨🇩",cl:"#007FFF",pl:["Emblema","Lionel Mpasi","A. Wan-Bissaka","A. Tuanzebe","A. Masuaku","C. Mbemba","J. Kayembe","Charles Pickel","N. Mukau","Edo Kayembe","S. Moutoussamy","Noah Sadiki","Foto Equipo","T. Bongonda","Meschak Elia","Yoane Wissa","B. Cipenga","Fiston Mayele","C. Bakambu","N. Mbuku"]},
+  {p:"COL",n:"Colombia",f:"🇨🇴",cl:"#FCD116",pl:["Emblema","Camilo Vargas","David Ospina","D. Sánchez","Yerry Mina","Daniel Muñoz","Johan Mojica","Jhon Lucumí","Santiago Arias","J. Lerma","Kevin Castaño","Richard Ríos","Foto Equipo","James Rodríguez","J.F. Quintero","J. Carrascal","Jhon Arias","Jhon Córdoba","Luis Suárez","Luis Díaz"]},
+  {p:"CRO",n:"Croacia",f:"🇭🇷",cl:"#FF0000",pl:["Emblema","D. Livaković","D. Ćaleta-Car","J. Gvardiol","J. Stanišić","L. Vušković","Josip Šutalo","K. Jakić","Luka Modrić","M. Kovačić","M. Baturina","Lovro Majer","Foto Equipo","M. Pašalić","Petar Sučić","Ivan Perišić","Marco Pašalić","Ante Budimir","A. Kramarić","F. Ivanović"]},
+  {p:"CUW",n:"Curazao",f:"🇨🇼",cl:"#002B7F",pl:["Emblema","Eloy Room","A. Obispo","S. Floranus","Jurien Gaari","J. Brenet","R. Van Eijma","S. Sambo","L. Comenencia","G. Roemeratoe","J. Bacuna","L. Bacuna","Foto Equipo","Tahith Chong","Kenji Gorre","J. Margaritha","J. Locadia","J. Antonisse","G. Kastaneer","Sontje Hansen"]},
+  {p:"CZE",n:"Chequia",f:"🇨🇿",cl:"#D7141A",pl:["Emblema","Matej Kovar","J. Stanek","L. Krejci","V. Coufal","J. Zeleny","Tomas Holes","David Zima","M. Sadilek","Lukas Provod","Lukas Cerv","Tomas Soucek","Foto Equipo","Pavel Sulc","Matej Vydra","Vasil Kusej","Tomas Chory","V. Cerny","Adam Hlozek","Patrik Schick"]},
+  {p:"ECU",n:"Ecuador",f:"🇪🇨",cl:"#FFD100",pl:["Emblema","H. Galíndez","G. Valle","P. Hincapié","P. Estupiñán","Willian Pacho","Á. Preciado","Joel Ordóñez","M. Caicedo","Alan Franco","Kendry Páez","Pedro Vite","Foto Equipo","John Yeboah","L. Campaña","G. Plata","Nilson Angulo","Alan Minda","K. Rodríguez","Enner Valencia"]},
+  {p:"EGY",n:"Egipto",f:"🇪🇬",cl:"#C8102E",pl:["Emblema","M. El Shenawy","M. Hany","M. Hamdy","Y. Ibrahim","Khaled Sobhi","Ramy Rabia","H. Abdelmaguid","A. Fatouh","Marwan Attia","Zizo","Hamdy Fathy","Foto Equipo","M. Lasheen","Emam Ashour","Osama Faisal","Mohamed Salah","M. Mohamed","Trezeguet","O. Marmoush"]},
+  {p:"ENG",n:"Inglaterra",f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",cl:"#FFFFFF",pl:["Emblema","J. Pickford","John Stones","Marc Guéhi","Ezri Konsa","T. Alexander-Arnold","Reece James","Dan Burn","J. Henderson","Declan Rice","J. Bellingham","Cole Palmer","Foto Equipo","M. Rogers","A. Gordon","Phil Foden","Bukayo Saka","Harry Kane","M. Rashford","Ollie Watkins"]},
+  {p:"ESP",n:"España",f:"🇪🇸",cl:"#AA151B",pl:["Emblema","Unai Simón","R. Le Normand","A. Laporte","Dean Huijsen","Pedro Porro","D. Carvajal","M. Cucurella","M. Zubimendi","Rodri","Pedri","Fabián Ruiz","Foto Equipo","Mikel Merino","Lamine Yamal","Dani Olmo","Nico Williams","Ferrán Torres","Álvaro Morata","M. Oyarzabal"]},
+  {p:"FRA",n:"Francia",f:"🇫🇷",cl:"#002395",pl:["Emblema","Mike Maignan","T. Hernández","W. Saliba","Jules Koundé","I. Konaté","D. Upamecano","Lucas Digne","A. Tchouaméni","E. Camavinga","Manu Koné","A. Rabiot","Foto Equipo","Michael Olise","O. Dembélé","B. Barcola","Désiré Doué","K. Coman","Hugo Ekitiké","K. Mbappé"]},
+  {p:"GER",n:"Alemania",f:"🇩🇪",cl:"#000000",pl:["Emblema","M-A. ter Stegen","J. Tah","David Raum","N. Schlotterbeck","A. Rüdiger","W. Anton","Ridle Baku","M. Mittelstädt","J. Kimmich","Florian Wirtz","Felix Nmecha","Foto Equipo","L. Goretzka","Jamal Musiala","Serge Gnabry","Kai Havertz","Leroy Sané","K. Adeyemi","N. Woltemade"]},
+  {p:"GHA",n:"Ghana",f:"🇬🇭",cl:"#006B3F",pl:["Emblema","L. Ati Zigi","T. Lamptey","M. Salisu","Alidu Seidu","A. Djiku","G. Mensah","C. Yirenkyi","A.I. Fatawu","Thomas Partey","S. Abdul Samed","K. Sulemana","Foto Equipo","M. Kudus","I. Williams","Jordan Ayew","Andrew Ayew","J. Paintsil","Osman Bukari","A. Semenyo"]},
+  {p:"HAI",n:"Haití",f:"🇭🇹",cl:"#00209F",pl:["Emblema","Johny Placide","Carlens Arcus","M. Expérience","J-K. Duverne","Ricardo Adé","Duke Lacroix","G. Métusala","H. Delcroix","L. Pierre","D. Jean Jacques","J-R. Bellegarde","Foto Equipo","C. Attys","D. Etienne Jr.","J. Casimir","R. Providence","D. Nazon","L. Deedson","F. Pierrot"]},
+  {p:"IRN",n:"Irán",f:"🇮🇷",cl:"#239F40",pl:["Emblema","A. Beiranvand","M. Pouraliganji","E. Hajsafi","M. Mohammadi","S. Khalilzadeh","R. Rezaeian","H. Kanaani","S. Moharrami","S. Hardani","S. Ezatolahi","S. Ghoddos","Foto Equipo","O. Noorafkan","R. Cheshmi","M. Mohebi","S. Azmoun","Mehdi Taremi","A. Jahanbakhsh","A. Gholizadeh"]},
+  {p:"IRQ",n:"Irak",f:"🇮🇶",cl:"#007A3D",pl:["Emblema","Jalal Hassan","Rebin Sulaka","Hussein Ali","A. Hashem","M. Doski","Zaid Tahseen","M. Younis","Zidane Iqbal","A. Al-Ammari","I. Bayesh","Ali Jasim","Foto Equipo","Y. Amyn","Aimar Sher","Marko Farji","Osama Rashid","A. Al-Hamadi","A. Hussein","Mohanad Ali"]},
+  {p:"JOR",n:"Jordania",f:"🇯🇴",cl:"#007A33",pl:["Emblema","Y. Abulaila","I. Haddad","M. Abu Hashish","Y. Al-Arab","A. Nasib","Saleem Obaid","M. Abualnadi","I. Saadeh","N. Al-Rashdan","N. Al-Rawabdeh","M. Abu Taha","Foto Equipo","Amer Jamous","M. Al-Taamari","Y. Al-Naimat","M. Al-Mardi","Ali Olwan","M. Abu Zrayq","I. Sabra"]},
+  {p:"JPN",n:"Japón",f:"🇯🇵",cl:"#000080",pl:["Emblema","Zion Suzuki","H. Mochizuki","Ayumu Seko","J. Suzuki","S. Taniguchi","T. Watanabe","Kaishu Sano","Yuki Soma","Ao Tanaka","D. Kamada","Takefusa Kubo","Foto Equipo","Ritsu Doan","K. Nakamura","T. Minamino","Shuto Machino","Junya Ito","Koki Ogawa","Ayase Ueda"]},
+  {p:"KOR",n:"Corea del Sur",f:"🇰🇷",cl:"#C60C30",pl:["Emblema","Hyeon-woo Jo","S-G. Kim","Min-jae Kim","Yu-min Cho","Y-W. Seol","H-B. Lee","T-S. Lee","M-J. Lee","J-S. Lee","I-B. Hwang","Kang-in Lee","Foto Equipo","S-H. Paik","Jens Castrop","D-Y. Lee","G-S. Cho","Heung-min Son","H-C. Hwang","H-G. Oh"]},
+  {p:"KSA",n:"Arabia Saudita",f:"🇸🇦",cl:"#006C35",pl:["Emblema","N. Alaqidi","A. Al-Sanbi","S. Abdulhamid","N. Bouwashl","J. Thakri","M. Al-Harbi","H. Altambakti","M. Aljuwayr","Z. Aljohani","A. Alkhaibari","N. Aldawsari","Foto Equipo","S. Abu Alshamat","M. Alsahafi","S. Aldawsari","A. Al-Aboud","F. Albrikan","A. Madu","F. Al-Buraikan"]},
+  {p:"MAR",n:"Marruecos",f:"🇲🇦",cl:"#C1272D",pl:["Emblema","Y. Bounou","A. Hakimi","N. Mazraoui","Nayef Aguerd","Romain Saïss","Adam Aznou","M. El Haddadi","S. Amrabat","A. Ounahi","B. El Khannouss","A. Sabiri","Foto Equipo","S. Boufal","Hakim Ziyech","Brahim Díaz","Ibrahim Díaz","I. Akhomach","Y. En-Nesyri","A. El Kaabi"]},
+  {p:"MEX",n:"México",f:"🇲🇽",cl:"#006847",pl:["Emblema","G. Ochoa","J. Sánchez","César Montes","J. Vásquez","G. Arteaga","J. Gallardo","Jesús Angulo","Edson Álvarez","Luis Romo","C. Rodríguez","O. Pineda","Foto Equipo","Diego Lainez","H. Lozano","Alexis Vega","R. Alvarado","Uriel Antuna","Raúl Jiménez","S. Giménez"]},
+  {p:"NED",n:"Países Bajos",f:"🇳🇱",cl:"#FF6600",pl:["Emblema","B. Verbruggen","M. de Ligt","V. van Dijk","Nathan Aké","J. Timber","D. Dumfries","M. van de Ven","J. Frimpong","F. de Jong","R. Gravenberch","T. Reijnders","Foto Equipo","Xavi Simons","T. Koopmeiners","D. Malen","M. Ihattaren","S. Bergwijn","M. Depay","Cody Gakpo"]},
+  {p:"NZL",n:"Nueva Zelanda",f:"🇳🇿",cl:"#000000",pl:["Emblema","S. Marinovic","Tim Payne","M. Boxall","N. Pijnaker","L. Cacace","Storm Roux","Bill Tuiloma","Tommy Smith","Joe Bell","M. Stamenic","Matt Garbett","Foto Equipo","S. Singh","Elijah Just","Alex Greive","Ben Waine","Chris Wood","K. Barbarouses","M. Garbett"]},
+  {p:"NOR",n:"Noruega",f:"🇳🇴",cl:"#EF2B2D",pl:["Emblema","Ø. Nyland","K. Ajer","Leo Østigård","S. Strandberg","B. Meling","M. Pedersen","J. Ryerson","A. Hanche-Olsen","M. Ødegaard","Sander Berge","F. Aursnes","Foto Equipo","J.P. Hauge","Antonio Nusa","A. Sørloth","M. Elyounoussi","Oscar Bobb","E. Haaland","J.S. Larsen"]},
+  {p:"PAN",n:"Panamá",f:"🇵🇦",cl:"#D21034",pl:["Emblema","O. Mosquera","Fidel Escobar","A. Andrade","M.A. Murillo","Eric Davis","J. Córdoba","C. Blackman","C. Martínez","A. Godoy","A. Carrasquilla","E. Anderson","Foto Equipo","É. Bárcenas","C. Harvey","Ismael Díaz","J. Fajardo","C. Waterman","J.L. Rodríguez","A. Quintero"]},
+  {p:"PAR",n:"Paraguay",f:"🇵🇾",cl:"#D52B1E",pl:["Emblema","Antony Silva","G. Gómez","O. Alderete","F. Balbuena","Junior Alonso","Robert Rojas","A. Espínola","S. Arzamendia","Andrés Cubas","M. Villasanti","Ó. Romero","Foto Equipo","M. Almirón","Julio Enciso","Ramón Sosa","Gabriel Ávalos","D. González","A. Sanabria","Á. Romero"]},
+  {p:"POR",n:"Portugal",f:"🇵🇹",cl:"#006600",pl:["Emblema","Diogo Costa","Rúben Dias","Pepe","G. Inácio","Nuno Mendes","João Cancelo","Diogo Dalot","N. Semedo","B. Fernandes","B. Silva","Vitinha","Foto Equipo","João Neves","Pedro Neto","João Félix","Rafael Leão","Diogo Jota","G. Ramos","C. Ronaldo"]},
+  {p:"QAT",n:"Catar",f:"🇶🇦",cl:"#8B0000",pl:["Emblema","S. Al-Sheeb","M. Barsham","Pedro Miguel","A. Hassan","T. Salman","B. Al-Rawi","Homam Ahmed","B. Khoukhi","H. Al-Haydos","A. Hatem","K. Boudiaf","Foto Equipo","Assim Madibo","Akram Afif","Almoez Ali","M. Muntari","I. Mohammad","A. Alaaeldin","Y. Abdurisag"]},
+  {p:"SCO",n:"Escocia",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",cl:"#003078",pl:["Emblema","Angus Gunn","A. Robertson","K. Tierney","S. McKenna","Grant Hanley","Jack Hendry","Aaron Hickey","A. Ralston","John McGinn","C. McGregor","S. McTominay","Foto Equipo","B. Gilmour","R. Christie","S. Armstrong","James Forrest","Ryan Fraser","Che Adams","Lyndon Dykes"]},
+  {p:"SEN",n:"Senegal",f:"🇸🇳",cl:"#00853F",pl:["Emblema","É. Mendy","K. Koulibaly","Abdou Diallo","Y. Sabaly","F. Mendy","I. Jakobs","M. Niakhaté","P.A. Cissé","I. Gueye","N. Mendy","P.M. Sarr","Foto Equipo","C. Kouyaté","Ismaïla Sarr","Sadio Mané","I. Ndiaye","K. Diatta","Boulaye Dia","N. Jackson"]},
+  {p:"RSA",n:"Sudáfrica",f:"🇿🇦",cl:"#007749",pl:["Emblema","R. Williams","S. Xulu","G. Kekana","R. Dortley","M. Mvala","A. Modiba","T. Monare","K. Mudau","T. Mokoena","T. Zwane","E. Brooks","Foto Equipo","Percy Tau","Lyle Foster","I. Rayners","E. Makgopa","B. Hlongwane","T. Morena","R. Mofokeng"]},
+  {p:"SWE",n:"Suecia",f:"🇸🇪",cl:"#006AA7",pl:["Emblema","Robin Olsen","V. Lindelöf","A. Milosevic","Emil Krafth","L. Augustinsson","H. Ekdal","C. Starfelt","G. Gudmundsson","E. Forsberg","S. Larsson","J. Cajuste","Foto Equipo","D. Kulusevski","A. Elanga","V. Gyökeres","A. Isak","R. Quaison","H. Larsson","J. Karlström"]},
+  {p:"SUI",n:"Suiza",f:"🇨🇭",cl:"#FF0000",pl:["Emblema","Yann Sommer","M. Akanji","Fabian Schär","R. Rodríguez","Nico Elvedi","S. Widmer","L. Stergiou","Ulisses García","Granit Xhaka","D. Zakaria","R. Freuler","Foto Equipo","X. Shaqiri","R. Vargas","Dan Ndoye","Breel Embolo","Noah Okafor","Z. Amdouni","J. Monteiro"]},
+  {p:"TUN",n:"Túnez",f:"🇹🇳",cl:"#E70013",pl:["Emblema","A. Dahmen","M. Dräger","M. Talbi","Dylan Bronn","Ali Abdi","W. Kechrida","N. Ghandri","Ali Maâloul","A. Laïdouni","E. Skhiri","M.A. Ben Romdhane","Foto Equipo","W. Khazri","Naïm Sliti","Y. Msakni","H. Mejbri","S-E. Khaoui","S. Jaziri","Issam Jebali"]},
+  {p:"TUR",n:"Turquía",f:"🇹🇷",cl:"#E30A17",pl:["Emblema","A. Bayındır","F. Kadıoğlu","M. Demiral","Ç. Söyüncü","M. Müldür","Zeki Çelik","O. Kabak","K. Ayhan","H. Çalhanoğlu","O. Yokuşlu","İ. Yüksek","Foto Equipo","O. Kökçü","Arda Güler","K. Yıldız","B.A. Yılmaz","Y. Yazıcı","Cenk Tosun","K. Aktürkoğlu"]},
+  {p:"URU",n:"Uruguay",f:"🇺🇾",cl:"#001489",pl:["Emblema","S. Rochet","J.M. Giménez","Diego Godín","S. Coates","R. Araújo","M. Olivera","G. Varela","N. Nández","F. Valverde","R. Bentancur","M. Ugarte","Foto Equipo","G. De Arrascaeta","N. De La Cruz","F. Pellistri","A. Canobbio","M. Araújo","Darwin Núñez","Luis Suárez"]},
+  {p:"USA",n:"Estados Unidos",f:"🇺🇸",cl:"#002868",pl:["Emblema","Matt Turner","Sergiño Dest","C. Richards","Tim Ream","A. Robinson","Joe Scally","M. McKenzie","M. Robinson","W. McKennie","Tyler Adams","Yunus Musah","Foto Equipo","Gio Reyna","C. Pulisic","B. Aaronson","T. Weah","F. Balogun","Josh Sargent","Ricardo Pepi"]},
+  {p:"UZB",n:"Uzbekistán",f:"🇺🇿",cl:"#1EB53A",pl:["Emblema","E. Shomurodov GK","H. Aliqulov","A. Khusanov","A. Mozgovoy","D. Khashimov","S. Nasrullayev","I. Tukhtakhujaev","O. Shukurov","J. Masharipov","J. Iskanderov","O. Urunov","Foto Equipo","K. Norchaev","A. Fayzullaev","I. Yuldoshev","A. Turgunboev","E. Shomurodov","B. Abdikholiqov","D. Khamdamov"]},
+];
+
+// Build ordered codes
+const ALL_CODES = [];
+const STICKER_MAP = {};
+INTRO.forEach(s => { ALL_CODES.push(s.c); STICKER_MAP[s.c] = { code:s.c, name:s.n, section:s.s, team:null }; });
+T.forEach(team => {
+  for(let i=1;i<=20;i++){
+    const c = team.p+i;
+    ALL_CODES.push(c);
+    STICKER_MAP[c] = { code:c, name:team.pl[i-1], section:team.n, team };
+  }
+});
+const TOTAL = ALL_CODES.length;
+
+// ══════════════════════════════════════════════════════════════
+// PERSISTENCE
+// ══════════════════════════════════════════════════════════════
+const STORAGE_KEY = "panini2026_jj";
+function loadState() {
+  // 1. Check URL hash first
+  const hash = location.hash.slice(1);
+  if(hash && hash.startsWith("s=")) {
+    try {
+      const decoded = atob(hash.slice(2));
+      const st = {};
+      for(let i=0;i<decoded.length&&i<ALL_CODES.length;i++){
+        if(decoded[i]==='1') st[ALL_CODES[i]]='pegada';
+        else if(decoded[i]==='2') st[ALL_CODES[i]]='repetida';
+      }
+      // Save to localStorage too
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(st));
+      // Clean URL without reload
+      history.replaceState(null,'',location.pathname);
+      return st;
+    } catch(e){ console.log("Bad URL state"); }
+  }
+  // 2. localStorage
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  } catch(e){}
+  return {};
+}
+
+function saveState(st) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(st)); } catch(e){}
+}
+
+function encodeStateToURL(st) {
+  let s = '';
+  ALL_CODES.forEach(c => {
+    if(st[c]==='pegada') s+='1';
+    else if(st[c]==='repetida') s+='2';
+    else s+='0';
+  });
+  return location.origin + location.pathname + '#s=' + btoa(s);
+}
+
+function exportJSON(st) {
+  const data = JSON.stringify(st, null, 2);
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'album-panini-2026-juanjose.json'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importJSON(callback) {
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const st = JSON.parse(ev.target.result);
+        callback(st);
+      } catch(e){ alert('Archivo inválido'); }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// ══════════════════════════════════════════════════════════════
+// APP STATE & RENDERING
+// ══════════════════════════════════════════════════════════════
+let state = loadState();
+let activeTab = 'album';
+let selectedTeam = null;
+let searchTerm = '';
+let listFilter = 'all';
+let toastTimeout = null;
+let showResetModal = false;
+
+function getStats() {
+  let pegadas=0, repetidas=0;
+  Object.values(state).forEach(v => {
+    if(v==='pegada') pegadas++;
+    if(v==='repetida'){ pegadas++; repetidas++; }
+  });
+  return { total:TOTAL, pegadas, repetidas, faltan:TOTAL-pegadas, pct:Math.round((pegadas/TOTAL)*100) };
+}
+
+function toggleSticker(code) {
+  const cur = state[code] || 'empty';
+  if(cur==='empty') state[code]='pegada';
+  else if(cur==='pegada') state[code]='repetida';
+  else delete state[code];
+  saveState(state);
+  render();
+}
+
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(()=> el.classList.remove('show'), 2500);
+}
+
+function render() {
+  const stats = getStats();
+  const app = document.getElementById('app');
+
+  let html = `
+  <div class="header">
+    <div class="header-top">
+      <div class="header-left">
+        <img src="${LOGO_B64}" alt="WC26" class="header-logo">
+        <div>
+          <div class="header-title">ÁLBUM PANINI MUNDIAL 2026</div>
+          <div class="header-name">Juan José Areiza Estrada</div>
+        </div>
+      </div>
+      <div>
+        <div class="header-pct">${stats.pct}%</div>
+        <div class="header-pct-label">COMPLETADO</div>
+      </div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${stats.pct}%"></div></div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-label">✅ PEGADAS</div><div class="stat-value" style="color:var(--green-l)">${stats.pegadas}</div></div>
+      <div class="stat-card"><div class="stat-label">❌ FALTAN</div><div class="stat-value" style="color:var(--red)">${stats.faltan}</div></div>
+      <div class="stat-card"><div class="stat-label">🔄 REPETIDAS</div><div class="stat-value" style="color:var(--yellow)">${stats.repetidas}</div></div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn ${activeTab==='album'?'active':''}" onclick="activeTab='album';selectedTeam=null;render()">📖 Álbum</button>
+    <button class="tab-btn ${activeTab==='lista'?'active':''}" onclick="activeTab='lista';selectedTeam=null;render()">📋 Lista</button>
+    <button class="tab-btn ${activeTab==='sync'?'active':''}" onclick="activeTab='sync';selectedTeam=null;render()">☁️ Sync</button>
+  </div>`;
+
+  // ── ALBUM TAB ──
+  if(activeTab==='album' && !selectedTeam) {
+    html += `<div class="content">`;
+    // Specials
+    html += `<div class="section-title">⚽ INTRODUCCIÓN & MUSEO FIFA</div><div class="special-grid">`;
+    INTRO.forEach(s => {
+      const st = state[s.c]||'empty';
+      html += `<div class="sticker-cell" data-state="${st}" onclick="toggleSticker('${s.c}')">
+        <div class="sticker-code">${s.c}</div>
+        <div class="sticker-name">${s.n}</div>
+        ${st==='repetida'?'<div class="sticker-rep-badge">🔄 REP</div>':''}
+      </div>`;
+    });
+    html += `</div>`;
+
+    // Teams
+    html += `<div class="section-title">🌍 SELECCIONES (${T.length})</div><div class="teams-grid">`;
+    T.forEach(team => {
+      let owned=0;
+      for(let i=1;i<=20;i++){ const v=state[team.p+i]; if(v==='pegada'||v==='repetida') owned++; }
+      const pct=Math.round((owned/20)*100);
+      const complete=owned===20;
+      const pctColor = complete?'var(--green-l)':pct>50?'var(--yellow)':'var(--dim)';
+      const barColor = complete?'var(--green)':pct>50?'var(--yellow)':'var(--blue)';
+      html += `<div class="team-card ${complete?'complete':''}" onclick="selectedTeam=T[${T.indexOf(team)}];render()">
+        <div class="team-top">
+          <div class="team-info">
+            <span class="team-flag">${team.f}</span>
+            <div><div class="team-name">${team.n}</div><div class="team-sub">${team.p} · ${owned}/20</div></div>
+          </div>
+          <div class="team-pct" style="color:${pctColor}">${pct}%</div>
+        </div>
+        <div class="team-progress"><div class="team-progress-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // ── TEAM DETAIL ──
+  if(activeTab==='album' && selectedTeam) {
+    const t = selectedTeam;
+    let owned=0;
+    for(let i=1;i<=20;i++){ const v=state[t.p+i]; if(v==='pegada'||v==='repetida') owned++; }
+    html += `<div class="content">
+      <button class="back-btn" onclick="selectedTeam=null;render()">← Volver</button>
+      <div class="album-page" style="background:linear-gradient(145deg,${t.cl}22,${t.cl}11,#0f172a);border:2px solid ${t.cl}66">
+        <div class="album-header" style="background:linear-gradient(90deg,${t.cl}33,transparent);border-bottom:1px solid ${t.cl}44">
+          <div class="album-we-are">WE ARE</div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:36px">${t.f}</span>
+            <div>
+              <div class="album-country">${t.n.toUpperCase()}</div>
+              <div class="album-meta">${owned}/20 láminas · ${t.p}1 – ${t.p}20</div>
+            </div>
+          </div>
+        </div>
+        <div class="album-hint">Toca: vacía → ✅ pegada → 🔄 repetida → vacía</div>
+        <div class="album-stickers">`;
+
+    for(let i=0;i<20;i++){
+      const code = t.p+(i+1);
+      const st = state[code]||'empty';
+      const player = t.pl[i];
+      const isE = i===0, isT = i===12;
+      const emIcon = isE?'🏅':isT?'📸':'👤';
+      const filIcon = isE?'🏅':isT?'📸':'⚽';
+
+      if(st==='empty'){
+        html += `<div class="player-sticker" data-state="empty" onclick="toggleSticker('${code}')">
+          <div class="icon-empty">${emIcon}</div>
+          <div class="code">${code}</div>
+          <div class="pname">${player}</div>
+        </div>`;
+      } else {
+        html += `<div class="player-sticker" data-state="${st}" style="${st==='pegada'?`color:${t.cl};border-color:${t.cl};background:linear-gradient(145deg,${t.cl}44,${t.cl}22)`:''}" onclick="toggleSticker('${code}')">
+          <div class="icon">${filIcon}</div>
+          <div class="code">${code}</div>
+          <div class="pname">${player}</div>
+          <div class="badge">${st==='pegada'?'✓':'🔄'}</div>
+        </div>`;
+      }
+    }
+    html += `</div></div></div>`;
+  }
+
+  // ── LIST TAB ──
+  if(activeTab==='lista') {
+    html += `<div class="content">
+      <input class="search-input" type="text" placeholder="🔍 Buscar por código o nombre..." value="${searchTerm}" oninput="searchTerm=this.value;render()">
+      <div class="filter-row">
+        <button class="filter-btn ${listFilter==='all'?'active':''}" onclick="listFilter='all';render()">Todas (${TOTAL})</button>
+        <button class="filter-btn ${listFilter==='pegadas'?'active':''}" onclick="listFilter='pegadas';render()">Pegadas (${stats.pegadas})</button>
+        <button class="filter-btn ${listFilter==='faltan'?'active':''}" onclick="listFilter='faltan';render()">Faltan (${stats.faltan})</button>
+        <button class="filter-btn ${listFilter==='repetidas'?'active':''}" onclick="listFilter='repetidas';render()">Repetidas (${stats.repetidas})</button>
+      </div>
+      <div class="list-container">`;
+
+    let items = ALL_CODES.map(c=>STICKER_MAP[c]);
+    if(searchTerm){
+      const q=searchTerm.toLowerCase();
+      items=items.filter(s=>s.code.toLowerCase().includes(q)||s.name.toLowerCase().includes(q)||s.section.toLowerCase().includes(q));
+    }
+    if(listFilter==='pegadas') items=items.filter(s=>{const v=state[s.code];return v==='pegada'||v==='repetida';});
+    if(listFilter==='repetidas') items=items.filter(s=>state[s.code]==='repetida');
+    if(listFilter==='faltan') items=items.filter(s=>!state[s.code]||state[s.code]==='empty');
+
+    items.forEach(s=>{
+      const st=state[s.code]||'empty';
+      const codeColor=st==='empty'?'var(--dim)':st==='pegada'?'var(--green-l)':'var(--yellow)';
+      html += `<button class="list-item" data-state="${st}" onclick="toggleSticker('${s.code}')">
+        <div class="list-item-left">
+          ${s.team?`<span class="list-flag">${s.team.f}</span>`:''}
+          <div style="min-width:0">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="list-code" style="color:${codeColor}">${s.code}</span>
+              <span class="list-name">${s.name}</span>
+            </div>
+            <div class="list-section">${s.section}</div>
+          </div>
+        </div>
+        <div class="list-status">${st==='empty'?'—':st==='pegada'?'✅':'✅🔄'}</div>
+      </button>`;
+    });
+
+    if(items.length===0) html += `<div class="empty-state">No se encontraron láminas.</div>`;
+    html += `</div></div>`;
+  }
+
+  // ── SYNC TAB ──
+  if(activeTab==='sync') {
+    html += `<div class="content">
+      <div class="sync-panel">
+        <div class="sync-title">📱 SINCRONIZAR ENTRE DISPOSITIVOS</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5">
+          Genera un enlace con tu progreso actual. Ábrelo en cualquier navegador o dispositivo para cargar tu álbum automáticamente.
+        </p>
+        <div class="sync-btns">
+          <button class="sync-btn sync-link" onclick="const url=encodeStateToURL(state);navigator.clipboard.writeText(url).then(()=>showToast('✅ Enlace copiado al portapapeles'));"><b>🔗 Copiar enlace de sincronización</b></button>
+        </div>
+      </div>
+
+      <div class="sync-panel">
+        <div class="sync-title">💾 EXPORTAR / IMPORTAR ARCHIVO</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5">
+          Descarga un archivo JSON con tu progreso, o carga uno previamente guardado.
+        </p>
+        <div class="sync-btns">
+          <button class="sync-btn sync-export" onclick="exportJSON(state);showToast('📥 Archivo descargado')">📥 Exportar JSON</button>
+          <button class="sync-btn sync-import" onclick="importJSON(s=>{state=s;saveState(state);render();showToast('📤 Datos importados')})">📤 Importar JSON</button>
+        </div>
+      </div>
+
+      <div class="sync-panel">
+        <div class="sync-title">🗑️ REINICIAR ÁLBUM</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5">
+          Borra todo el progreso y empieza desde cero. Esta acción no se puede deshacer.
+        </p>
+        <div class="sync-btns">
+          <button class="sync-btn sync-reset" onclick="showResetModal=true;render()">🗑️ Borrar todo</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  html += `<div class="footer">Juan José Areiza Estrada · Álbum Panini Mundial 2026 🏆</div>`;
+  html += `<div id="toast" class="toast"></div>`;
+
+  // Reset modal
+  if(showResetModal) {
+    html += `<div class="modal-overlay" onclick="showResetModal=false;render()">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-title">⚠️ CONFIRMAR REINICIO</div>
+        <div class="modal-text">¿Estás seguro de que quieres borrar todo el progreso del álbum? Esta acción no se puede deshacer.</div>
+        <div class="modal-btns">
+          <button class="modal-btn modal-cancel" onclick="showResetModal=false;render()">Cancelar</button>
+          <button class="modal-btn modal-confirm" onclick="state={};saveState(state);showResetModal=false;render();showToast('🗑️ Álbum reiniciado')">Sí, borrar todo</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  app.innerHTML = html;
+}
+
+// Initial render
+render();
+</script>
+</body>
+</html>
